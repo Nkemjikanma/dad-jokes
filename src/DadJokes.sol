@@ -36,11 +36,7 @@ contract DadJokes is DadJokesConstants {
 
     /*Events*/
     event JokeAdded(uint256 indexed jokeId, address indexed creator); //
-    event JokeRewarded(
-        uint256 indexed jokeId,
-        uint8 rewardType,
-        uint256 rewardAmount
-    );
+    event JokeRewarded(uint256 indexed jokeId, uint8 rewardType, uint256 rewardAmount);
     event JokeDeleted(uint256 indexed jokeId);
     event BalanceWithdrawn(address indexed creator, uint256 amount);
 
@@ -134,7 +130,7 @@ contract DadJokes is DadJokesConstants {
         creatorBalances[msg.sender] = 0;
 
         // use call to send the balance to the creator/caller
-        (bool success, ) = payable(msg.sender).call{value: balance}("");
+        (bool success,) = payable(msg.sender).call{value: balance}("");
 
         if (!success) {
             revert DadJokes__FailedToWithdraw();
